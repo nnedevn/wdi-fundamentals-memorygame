@@ -1,4 +1,4 @@
-/*jslint  browser:true, white:true  */
+/*jslint browser:true, white:true  */
 
 /*global 
   alert, console, 
@@ -23,13 +23,18 @@ var cards = [{
 }];
 var cardsInPlay = [];
 
-
+/*
+ * Checks if rank of the clicked cards matches.
+ * @param {object} obj - necessary due to strict mode.
+ * @param {string} cardId - Clicked card's ID.
+ */
 function checkForMatch(obj, cardId) {
   'use strict';
 
   obj.setAttribute('src', cards[cardId].cardImage);
+
   if (cardsInPlay.length === 2) {
-    if (cardsInPlay[0] === cardsInPlay[1]) {
+    if (cards[cardsInPlay[0]].rank === cards[cardsInPlay[1]].rank) {
       alert('You found a match!');
     } else {
       alert('Sorry, try again');
@@ -37,7 +42,10 @@ function checkForMatch(obj, cardId) {
   }
 }
 
-
+/*
+ * Gets the data-id of the clicked card, pushes it 
+ * into an array and checks for matching cards
+ */
 function flipCard() {
   'use strict';
 
@@ -46,12 +54,16 @@ function flipCard() {
   checkForMatch(this, cardId);
 }
 
-
+/*
+ * Creates the board
+ */
 function createBoard() {
   'use strict';
+var i = null;
+var cardElement = null;
 
-  for (var i = 0; i < cards.length; i += 1) {
-    var cardElement = document.createElement('img');
+  for (i = 0; i < cards.length; i += 1) {
+    cardElement = document.createElement('img');
     cardElement.setAttribute('src', 'images/back.png');
     cardElement.setAttribute('data-id', i);
     cardElement.addEventListener('click', flipCard);
